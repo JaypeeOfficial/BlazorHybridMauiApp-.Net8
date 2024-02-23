@@ -24,13 +24,13 @@
         <div class="d-flex flex-row">
             <div class="col-4 d-flex justify-content-between">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" /> 
+                    <input @onchange="@(() => registrationModel.Gender="Male")" class="form-check-input" type="radio" name="flexRadioDefault" /> 
                     <label class="form-check-label" for="flexRadioDefault1">
                         Male
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" />
+                    <input @onchange="@(() => registrationModel.Gender="Female")" class="form-check-input" type="radio" name="flexRadioDefault" />
                     <label class="form-check-label" for="flexRadioDefault2">
                         Female
                     </label>
@@ -50,7 +50,7 @@
     <div class="mt-2 form-group">
         <label>Password</label>
         <input type="password" @bind-value="@registrationModel.Password" class="form-control" placeholder="Enter password" />
-        <ValidationMessage For="@(() => registrationModel.Email)" />
+        <ValidationMessage For="@(() => registrationModel.Password)" />
     </div>
 
     <div class="mt-2 text-end">
@@ -72,11 +72,6 @@
     private void Submit()
     {
 
-    }
-
-    private void SetGender(string gender)
-    {
-        registrationModel.Gender = gender; 
     }
 
 }

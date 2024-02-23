@@ -1,6 +1,9 @@
 using BlazorMauiSampleApp.Data;
 using BlazorSampleApp.Components;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Maui.Networking;
+using SharedClassLibrary.Infrastructure.Services;
+using SharedClassLibrary.Infrastructure.Store_Context;
 using SharedRazorLibrary.Pages;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,11 @@ builder.Services.AddRazorComponents()
 builder.Services.AddSingleton<TodoService>();
 builder.Services.AddSingleton<IConnectivity, BlazorConnectivity>();
 
+builder.Services.AddSingleton<IAppServices, AppService>();
+
+
+var connectionString = builder.Configuration.GetConnectionString("DevConnection");
+builder.Services.AddDbContext<StoreContext>(x => x.UseSqlServer(connectionString));
 
 var app = builder.Build();
 

@@ -27,6 +27,7 @@
 
     <div class="text-center mt-2">
         <button class="btn btn-primary" type="submit">Sign In</button>
+        <span class="@_spinnerClass" role="status" aria-hidden="true"></span>
     </div>
 
 </EditForm>
@@ -35,9 +36,16 @@
 @code {
     LoginModel loginModel = new();
 
+    private string _spinnerClass = "";
 
-    private void Submit()
+    private async void Submit()
     {
-        
+        _spinnerClass = "spinner border spinner-border-sm";
+
+        await Task.Delay(500); 
+
+        _spinnerClass = "";
+
+        this.StateHasChanged();
     }
 }

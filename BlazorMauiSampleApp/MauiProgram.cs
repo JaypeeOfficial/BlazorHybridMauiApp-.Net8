@@ -1,5 +1,8 @@
 ﻿using BlazorMauiSampleApp.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using SharedClassLibrary.Infrastructure.Store_Context;
 
 namespace BlazorMauiSampleApp
 {
@@ -18,7 +21,11 @@ namespace BlazorMauiSampleApp
             builder.Services.AddMauiBlazorWebView();
 
 #if DEBUG
-    		builder.Services.AddBlazorWebViewDeveloperTools();
+            var connectionString = builder.Configuration.GetConnectionString("DevConnection");
+            builder.Services.AddDbContext<StoreContext>(x => x.UseSqlServer(connectionString));
+
+
+            builder.Services.AddBlazorWebViewDeveloperTools();
     		builder.Logging.AddDebug();
 
             builder.Services.AddSingleton<TodoService>();
